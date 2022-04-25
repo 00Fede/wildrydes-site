@@ -52,14 +52,29 @@ var WildRydes = window.WildRydes || {};
      * Cognito User Pool functions
      */
 
-    function register(email, password, onSuccess, onFailure) {
+    function register(email, password, givenname, familyname, username, onSuccess, onFailure) {
         var dataEmail = {
             Name: 'email',
             Value: email
         };
+        var dataGivenName = {
+            Name: 'given_name',
+            Value: givenname
+        };
+        var dataFamilyName = {
+            Name: 'family_name',
+            Value: familyname
+        };
+        var dataUsername = {
+            Name: 'preferred_username',
+            Value: username
+        };
         var attributeEmail = new AmazonCognitoIdentity.CognitoUserAttribute(dataEmail);
+        var attributeGivenName = new AmazonCognitoIdentity.CognitoUserAttribute(dataGivenName);
+        var attributeFamilyName = new AmazonCognitoIdentity.CognitoUserAttribute(dataFamilyName);
+        var attributeUsername = new AmazonCognitoIdentity.CognitoUserAttribute(dataUsername);
 
-        userPool.signUp(toUsername(email), password, [attributeEmail], null,
+        userPool.signUp(username, password, [attributeEmail, attributeGivenName, attributeFamilyName, attributeUsername], null,
             function signUpCallback(err, result) {
                 if (!err) {
                     onSuccess(result);
@@ -133,6 +148,9 @@ var WildRydes = window.WildRydes || {};
         var email = $('#emailInputRegister').val();
         var password = $('#passwordInputRegister').val();
         var password2 = $('#password2InputRegister').val();
+        var givenname = $('#givenNameInputRegister').val();
+        var familyname = $('#familyNameInputRegister').val();
+        var username = $('#usernameInputRegister').val();
 
         var onSuccess = function registerSuccess(result) {
             var cognitoUser = result.user;
@@ -148,7 +166,7 @@ var WildRydes = window.WildRydes || {};
         event.preventDefault();
 
         if (password === password2) {
-            register(email, password, onSuccess, onFailure);
+            register(email, password, givenname, familyname, username, onSuccess, onFailure);
         } else {
             alert('Passwords do not match');
         }
