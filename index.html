@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Wild Rydes</title>
+  <title>Wild Rydes Rules!</title>
 
   <link rel="stylesheet" href="css/font.css">
   <link rel="stylesheet" href="css/main.css">
@@ -156,5 +156,16 @@
   <script src="js/vendor.js"></script>
 
   <script src="js/main.js"></script>
+  <script src="https://d7ydycdxkpyh2.cloudfront.net/lex-web-ui-loader.min.js"></script>
+  <script>
+      var loaderOpts = {
+          baseUrl: 'https://d7ydycdxkpyh2.cloudfront.net/',
+          shouldLoadMinDeps: true
+      };
+      var loader = new ChatBotUiLoader.IframeLoader(loaderOpts);
+      var chatbotUiConfig = {};
+      loader.load(chatbotUiConfig)
+          .catch(function (error) { console.error(error); });
+  </script>
 </body>
 </html>
